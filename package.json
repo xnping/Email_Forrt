@@ -5,10 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js --dev",
+    "dev": "vercel dev",
     "test": "node test.js",
     "setup": "node setup.js",
-    "build": "echo 'No build step required'"
+    "build": "echo 'No build step required'",
+    "vercel-build": "echo 'Build complete'"
   },
   "keywords": ["temp-email", "smtp", "multi-domain"],
   "author": "Your Name",
