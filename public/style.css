@@ -1,0 +1,426 @@
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 头部样式 */
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    color: #4a5568;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.stats-bar span {
+    background: #e2e8f0;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 主要内容区域 */
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 邮箱生成器 */
+.email-generator {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.email-generator h2 {
+    margin-bottom: 20px;
+    color: #2d3748;
+}
+
+.generator-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.generated-email {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.generated-email input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #f7fafc;
+}
+
+/* 邮件列表 */
+.email-list {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.list-header h2 {
+    color: #2d3748;
+}
+
+.list-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    width: 200px;
+}
+
+.email-items {
+    min-height: 300px;
+}
+
+.email-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f7fafc;
+}
+
+.email-item:hover {
+    background: #edf2f7;
+    border-color: #cbd5e0;
+    transform: translateY(-1px);
+}
+
+.email-item.unread {
+    border-left: 4px solid #4299e1;
+    background: #ebf8ff;
+}
+
+.email-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.email-subject {
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 16px;
+}
+
+.email-time {
+    color: #718096;
+    font-size: 12px;
+}
+
+.email-meta {
+    display: flex;
+    gap: 20px;
+    color: #4a5568;
+    font-size: 14px;
+    flex-wrap: wrap;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #718096;
+}
+
+.empty-state p:first-child {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* 分页 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #4299e1;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #3182ce;
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #cbd5e0;
+}
+
+.btn-danger {
+    background: #f56565;
+    color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #e53e3e;
+}
+
+/* 选择框 */
+.select {
+    padding: 8px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+}
+
+/* 模态框 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background: #4299e1;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.email-meta {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.email-meta p {
+    margin-bottom: 8px;
+}
+
+.email-content pre {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    background: #f7fafc;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* 系统状态 */
+.system-status {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.system-status h2 {
+    margin-bottom: 20px;
+    color: #2d3748;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.status-card {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.status-card h3 {
+    margin-bottom: 15px;
+    color: #2d3748;
+    font-size: 16px;
+}
+
+.status-card p {
+    margin-bottom: 8px;
+    color: #4a5568;
+    font-size: 14px;
+}
+
+/* 底部 */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 20px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .generator-controls,
+    .list-controls {
+        flex-direction: column;
+    }
+    
+    .generated-email {
+        flex-direction: column;
+    }
+    
+    .generated-email input {
+        margin-bottom: 10px;
+    }
+    
+    .list-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .email-meta {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 2% auto;
+    }
+    
+    .status-grid {
+        grid-template-columns: 1fr;
+    }
+}

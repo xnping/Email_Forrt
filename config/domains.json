@@ -1,0 +1,100 @@
+{
+  "domains": [
+    {
+      "id": 1,
+      "domain": "xnping.nastu.net",
+      "enabled": true,
+      "smtpPort": 2525,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": "2025-06-07T10:02:58.378Z"
+    },
+    {
+      "id": 2,
+      "domain": "184772.so.kg",
+      "enabled": true,
+      "smtpPort": 2526,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": "2025-06-07T11:16:07.052Z"
+    },
+    {
+      "id": 3,
+      "domain": "domain3.example.com",
+      "enabled": false,
+      "smtpPort": 2527,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": null
+    },
+    {
+      "id": 4,
+      "domain": "domain4.example.com",
+      "enabled": false,
+      "smtpPort": 2528,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": null
+    },
+    {
+      "id": 5,
+      "domain": "domain5.example.com",
+      "enabled": false,
+      "smtpPort": 2529,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": null
+    },
+    {
+      "id": 6,
+      "domain": "domain6.example.com",
+      "enabled": false,
+      "smtpPort": 2530,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": null
+    },
+    {
+      "id": 7,
+      "domain": "domain7.example.com",
+      "enabled": false,
+      "smtpPort": 2531,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": null
+    },
+    {
+      "id": 8,
+      "domain": "domain8.example.com",
+      "enabled": false,
+      "smtpPort": 2532,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": null
+    },
+    {
+      "id": 9,
+      "domain": "domain9.example.com",
+      "enabled": false,
+      "smtpPort": 2533,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": null
+    },
+    {
+      "id": 10,
+      "domain": "domain10.example.com",
+      "enabled": false,
+      "smtpPort": 2534,
+      "maxEmails": 100,
+      "currentEmails": 0,
+      "lastUsed": null
+    }
+  ],
+  "settings": {
+    "webPort": 3000,
+    "cleanupInterval": 3600000,
+    "emailRetentionTime": 86400000,
+    "loadBalanceStrategy": "round-robin"
+  }
+}

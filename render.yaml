@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: email-forrt
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    disk:
+      name: email-storage
+      mountPath: /opt/render/project/src/storage
+      sizeGB: 1

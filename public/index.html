@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多域名临时邮箱系统</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🚀 多域名临时邮箱系统</h1>
+            <div class="stats-bar">
+                <span id="domain-count">域名: 0</span>
+                <span id="email-count">邮件: 0</span>
+                <span id="server-status">状态: 连接中...</span>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- 邮箱生成区域 -->
+            <section class="email-generator">
+                <h2>📧 生成临时邮箱</h2>
+                <div class="generator-controls">
+                    <button id="generate-btn" class="btn btn-primary">生成随机邮箱</button>
+                    <select id="domain-select" class="select">
+                        <option value="">选择域名...</option>
+                    </select>
+                </div>
+                <div class="generated-email">
+                    <input type="text" id="current-email" readonly placeholder="点击生成邮箱地址">
+                    <button id="copy-btn" class="btn btn-secondary">复制</button>
+                </div>
+            </section>
+
+            <!-- 邮件列表区域 -->
+            <section class="email-list">
+                <div class="list-header">
+                    <h2>📬 收件箱</h2>
+                    <div class="list-controls">
+                        <input type="text" id="search-input" placeholder="搜索邮件..." class="search-input">
+                        <button id="refresh-btn" class="btn btn-secondary">刷新</button>
+                        <select id="filter-domain" class="select">
+                            <option value="">所有域名</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="email-items" id="email-items">
+                    <div class="empty-state">
+                        <p>📭 暂无邮件</p>
+                        <p>生成邮箱地址后，收到的邮件将显示在这里</p>
+                    </div>
+                </div>
+
+                <div class="pagination" id="pagination">
+                    <button id="prev-page" class="btn btn-secondary" disabled>上一页</button>
+                    <span id="page-info">第 1 页，共 1 页</span>
+                    <button id="next-page" class="btn btn-secondary" disabled>下一页</button>
+                </div>
+            </section>
+
+            <!-- 邮件详情模态框 -->
+            <div id="email-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modal-subject">邮件主题</h3>
+                        <button id="close-modal" class="close-btn">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="email-meta">
+                            <p><strong>发件人:</strong> <span id="modal-from"></span></p>
+                            <p><strong>收件人:</strong> <span id="modal-to"></span></p>
+                            <p><strong>时间:</strong> <span id="modal-time"></span></p>
+                            <p><strong>域名:</strong> <span id="modal-domain"></span></p>
+                        </div>
+                        <div class="email-content">
+                            <h4>邮件内容:</h4>
+                            <pre id="modal-content"></pre>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="delete-email" class="btn btn-danger">删除邮件</button>
+                        <button id="close-modal-btn" class="btn btn-secondary">关闭</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 系统状态区域 -->
+            <section class="system-status">
+                <h2>📊 系统状态</h2>
+                <div class="status-grid">
+                    <div class="status-card">
+                        <h3>域名状态</h3>
+                        <div id="domain-status"></div>
+                    </div>
+                    <div class="status-card">
+                        <h3>邮件统计</h3>
+                        <div id="email-stats"></div>
+                    </div>
+                    <div class="status-card">
+                        <h3>系统信息</h3>
+                        <div id="system-info"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 多域名临时邮箱系统 | 自主开发版本</p>
+        </footer>
+    </div>
+
+    <script src="/public/script.js"></script>
+</body>
+</html>
