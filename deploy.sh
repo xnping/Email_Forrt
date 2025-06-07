@@ -65,8 +65,8 @@ install_nodejs() {
         fi
     fi
 
-    # 安装 Node.js 18.x for CentOS
-    curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
+    # 安装 Node.js 16.x for CentOS 7.9 (兼容性更好)
+    curl -fsSL https://rpm.nodesource.com/setup_16.x | bash -
     yum install -y nodejs
 
     # 验证安装

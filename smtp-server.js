@@ -17,7 +17,7 @@ class SMTPServer {
                 this.handleConnection(socket);
             });
 
-            this.server.listen(this.port, (err) => {
+            this.server.listen(this.port, '0.0.0.0', (err) => {
                 if (err) {
                     console.error(`SMTP服务器启动失败 ${this.domain.domain}:${this.port}`, err);
                     reject(err);
@@ -64,7 +64,7 @@ class SMTPServer {
             state: 'GREETING'
         };
 
-        console.log(`新的SMTP连接: ${socket.remoteAddress} -> ${this.domain.domain}`);
+        console.log(`新的SMTP连接: ${socket.remoteAddress}:${socket.remotePort} -> ${this.domain.domain}:${this.port}`);
 
         // 发送欢迎消息
         socket.write('220 ' + this.domain.domain + ' ESMTP Ready\r\n');
@@ -93,13 +93,19 @@ class SMTPServer {
 
     // 处理SMTP命令
     handleSMTPCommand(socket, data, sessionData) {
+        // 如果在 DATA 状态，特殊处理
+        if (sessionData.state === 'DATA') {
+            this.handleDataInput(socket, data, sessionData);
+            return;
+        }
+
         const lines = data.split('\r\n').filter(line => line.length > 0);
-        
+
         for (const line of lines) {
             const command = line.split(' ')[0].toUpperCase();
             const args = line.substring(command.length).trim();
 
-            console.log(`SMTP命令 [${this.domain.domain}]: ${line}`);
+            console.log(`SMTP命令 [${this.domain.domain}:${this.port}]: ${line}`);
 
             switch (command) {
                 case 'HELO':
@@ -151,25 +157,57 @@ class SMTPServer {
                     break;
 
                 case 'RSET':
-                    sessionData = { from: null, to: [], data: '', state: 'READY' };
+                    sessionData.from = null;
+                    sessionData.to = [];
+                    sessionData.data = '';
+                    sessionData.state = 'READY';
                     socket.write('250 OK\r\n');
                     break;
 
                 default:
-                    if (sessionData.state === 'DATA') {
-                        if (line === '.') {
-                            // 邮件数据结束
-                            this.processEmail(sessionData);
-                            socket.write('250 OK Message accepted\r\n');
-                            sessionData = { from: null, to: [], data: '', state: 'READY' };
-                        } else {
-                            sessionData.data += line + '\r\n';
-                        }
-                    } else {
-                        socket.write('500 Command not recognized\r\n');
-                    }
+                    socket.write('500 Command not recognized\r\n');
                     break;
             }
+        }
+    }
+
+    // 处理 DATA 输入
+    handleDataInput(socket, data, sessionData) {
+        const lines = data.split('\r\n');
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+
+            // 检查是否是邮件结束标记
+            if (line === '.') {
+                console.log(`邮件数据接收完成，总长度: ${sessionData.data.length} 字符`);
+                this.processEmail(sessionData);
+                socket.write('250 OK Message accepted\r\n');
+
+                // 重置会话状态
+                sessionData.from = null;
+                sessionData.to = [];
+                sessionData.data = '';
+                sessionData.state = 'READY';
+                return;
+            }
+
+            // 处理点号转义（SMTP 协议要求）
+            let processedLine = line;
+            if (line.startsWith('..')) {
+                processedLine = line.substring(1);
+            }
+
+            // 添加到邮件数据
+            sessionData.data += processedLine;
+            if (i < lines.length - 1) {
+                sessionData.data += '\r\n';
+            }
+        }
+
+        // 如果数据没有以 \r\n 结尾，添加换行符
+        if (!data.endsWith('\r\n')) {
+            sessionData.data += '\r\n';
         }
     }
 
@@ -187,21 +225,33 @@ class SMTPServer {
 
     // 处理接收到的邮件
     processEmail(sessionData) {
-        const emailData = {
-            id: crypto.randomUUID(),
-            from: sessionData.from,
-            to: sessionData.to,
-            domain: this.domain.domain,
-            subject: this.extractSubject(sessionData.data),
-            body: sessionData.data,
-            receivedAt: new Date().toISOString(),
-            read: false
-        };
+        try {
+            const emailData = {
+                id: crypto.randomUUID(),
+                from: sessionData.from,
+                to: sessionData.to,
+                domain: this.domain.domain,
+                subject: this.extractSubject(sessionData.data),
+                body: sessionData.data,
+                receivedAt: new Date().toISOString(),
+                read: false
+            };
 
-        console.log(`收到邮件 [${this.domain.domain}]: ${sessionData.from} -> ${sessionData.to.join(', ')}`);
-        
-        // 通过邮件分发器处理邮件
-        this.mailDispatcher.handleIncomingEmail(emailData);
+            console.log(`📧 收到邮件 [${this.domain.domain}]:`);
+            console.log(`   发件人: ${sessionData.from}`);
+            console.log(`   收件人: ${sessionData.to.join(', ')}`);
+            console.log(`   主题: ${emailData.subject}`);
+            console.log(`   邮件ID: ${emailData.id}`);
+            console.log(`   数据长度: ${sessionData.data.length} 字符`);
+
+            // 通过邮件分发器处理邮件
+            this.mailDispatcher.handleIncomingEmail(emailData);
+
+            console.log(`✅ 邮件处理完成: ${emailData.id}`);
+
+        } catch (error) {
+            console.error(`❌ 邮件处理失败:`, error);
+        }
     }
 
     // 提取邮件主题
